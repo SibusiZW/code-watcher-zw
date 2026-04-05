@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from "sonner";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
     >
       <ClerkProvider>
+        <Toaster />
         <body className="min-h-full flex flex-col">{children}</body>
       </ClerkProvider>
     </html>
