@@ -7,7 +7,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "CodeWatcher",
+  title: "CodeWatcher ZW",
   description: "A code analysis and planning app for students in Zimbabwe",
 };
 
