@@ -1,4 +1,5 @@
 import AddDialog from "@/components/add-dialog";
+import DeleteButton from "@/components/delete-dialog";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import getUserId from "@/server/auth";
@@ -39,6 +40,7 @@ export default async function Home() {
               <TableCell>{item.title}</TableCell>
               <TableCell>
                 <Link className="bg-blue-500 mr-2 p-2 rounded-md text-white hover:bg-blue-300" href={`conversation/${item.id}`}>Go here!!</Link>
+                <DeleteButton id={item.id}/>
               </TableCell>
             </TableRow>)}
           </TableBody>
