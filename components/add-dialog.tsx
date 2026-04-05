@@ -28,7 +28,7 @@ export default function AddDialog() {
             setLoading(false);
             
             router.refresh()
-            toast.success('Succesfully created conversation?')
+            toast.success('Succesfully created conversation!')
        }
     }
 
