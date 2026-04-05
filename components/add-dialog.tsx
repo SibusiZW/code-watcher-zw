@@ -1,11 +1,36 @@
 'use client';
 
-import { BadgePlus, Plus } from "lucide-react";
+import { BadgePlus, Loader2, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
+import createConversation from "@/server/conversations";
 
 export default function AddDialog() {
+
+    const [title, setTitle] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const { user } = useUser();
+
+    async function handleCreate(e: React.SubmitEvent) {
+        e.preventDefault();
+       if (user) {
+            
+            setLoading(true);
+
+            await createConversation(title, user.id);
+
+            setLoading(false);
+            toast.success('Succesfully created conversation?')
+            router.refresh()
+       }
+    }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -18,11 +43,10 @@ export default function AddDialog() {
             <DialogContent className="text-center">
                 <DialogTitle>Create new conversation</DialogTitle>
 
-                <form>
-                    <Input placeholder="Enter title of conversation" className="mb-2" required/>
+                <form onSubmit={handleCreate}>
+                    <Input placeholder="Enter title of conversation" className="mb-2" onChange={(e) => setTitle(e.target.value)} required/>
                     <Button className="w-full bg-blue-600 hover:bg-blue-300" type="submit">
-                        <BadgePlus />
-                        Create converstaion
+                        {loading ? <Loader2 className="animate-spin"/> : <><BadgePlus /> Create conversation</>}
                     </Button>
                 </form>
 

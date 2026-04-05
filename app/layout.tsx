@@ -18,14 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
-    >
-      <ClerkProvider>
-        <Toaster />
-        <body className="min-h-full flex flex-col">{children}</body>
-      </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("antialiased", "font-sans", inter.variable)}>
+        <ClerkProvider>
+          
+          <Toaster />
+          <main className="min-h-full flex flex-col">{children}</main>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
