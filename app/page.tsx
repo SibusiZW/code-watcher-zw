@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Show, SignInButton } from "@clerk/nextjs";
-import { Gavel } from 'lucide-react';
 
 export default function Home() {
   return (
