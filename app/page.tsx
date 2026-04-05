@@ -1,8 +1,16 @@
 import AddDialog from "@/components/add-dialog";
 import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import getUserId from "@/server/auth";
+import { getConversations } from "@/server/conversations";
 import { Show, SignInButton, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
+  const userId = await getUserId();
+  const conversations = await getConversations(userId);
+
   return (
     <div className="min-h-screen flex flex-col p-4 items-center justify-center">
       <h1 className="text-5xl font-serif mb-2.5">Code<span className="text-blue-600">Watcher</span></h1>
@@ -18,6 +26,23 @@ export default function Home() {
       <Show when={'signed-in'}>
         <AddDialog />
         <UserButton />
+
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {conversations?.map(item => <TableRow key={item.id}>
+              <TableCell>{item.title}</TableCell>
+              <TableCell>
+                <Link className="bg-blue-500 mr-2 p-2 rounded-md text-white hover:bg-blue-300" href={`conversation/${item.id}`}>Go here!!</Link>
+              </TableCell>
+            </TableRow>)}
+          </TableBody>
+        </Table>
       </Show>
     </div>
   );
