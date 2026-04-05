@@ -1,5 +1,6 @@
+import AddDialog from "@/components/add-dialog";
 import { Button } from "@/components/ui/button";
-import { Show, SignInButton } from "@clerk/nextjs";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
@@ -12,6 +13,11 @@ export default function Home() {
         </SignInButton>
 
         <div className="p-2 bg-blue-300 rounded-full text-blue-700 border border-blue-800">Harnessing AI for flexible software development</div>
+      </Show>
+      
+      <Show when={'signed-in'}>
+        <AddDialog />
+        <UserButton />
       </Show>
     </div>
   );
