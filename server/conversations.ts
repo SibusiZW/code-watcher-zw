@@ -2,7 +2,7 @@
 
 import { db } from "@/db/drizzle";
 import { conversations } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export default async function createConversation(title: string, userId: string) {
     await db.insert(conversations).values({ title: title, userId: userId });
@@ -10,7 +10,7 @@ export default async function createConversation(title: string, userId: string) 
 
 export async function getConversations(userId: string | undefined) {
     if (userId) {
-        const allConversations = await db.select().from(conversations).where(eq(conversations.userId, userId))
+        const allConversations = await db.select().from(conversations).where(eq(conversations.userId, userId)).orderBy(desc(conversations.createdOn))
         return allConversations
     }
 }

@@ -50,7 +50,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
     return (
         <div className="w-full h-full pb-32">
             {messages?.map(msg => <div className="flex flex-col justify-center items-center" key={msg.id}>
-                <p>{msg.userPrompt}</p>
+                <p className="flex items-center justify-center bg-blue-300 text-blue-700 rounded-[10px] p-4" >{msg.userPrompt}</p>
                 <div className="w-full p-2">
                     <div className="w-full h-full max-h-[400px] p-6 bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-y-auto relative">
                         <span>
