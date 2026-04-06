@@ -10,5 +10,18 @@ export default async function createMessage(prompt: string, response: string, cI
 
 export async function getMessages(conversationId: string) {
     const allMessages = await db.select().from(messages).where(eq(messages.conversationId, conversationId))
-    return allMessages
+    if (allMessages) {
+        return allMessages
+    } else {
+        return []
+    }
 }
+
+export async function deleteMessages(conversationId: string) {
+    const allMessages = await getMessages(conversationId);
+
+    if (allMessages) {
+        await db.delete(messages).where(eq(messages.conversationId, conversationId));
+    }
+    
+} 

@@ -14,3 +14,5 @@ export const messages = pgTable('messages', {
     conversationId: uuid().references(() => conversations.id).notNull(),
     createdOn: timestamp().defaultNow(),
 })
+
+export type Message = typeof messages.$inferSelect

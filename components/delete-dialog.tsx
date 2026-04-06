@@ -7,6 +7,7 @@ import { useState } from "react";
 import { deleteConversation } from "@/server/conversations";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { deleteMessages } from "@/server/messages";
 
 export default function DeleteButton({ id }: { id: string }) {
 
@@ -16,6 +17,7 @@ export default function DeleteButton({ id }: { id: string }) {
     async function handleDelete(id: string) {
         setLoading(true);
 
+        await deleteMessages(id);
         await deleteConversation(id);
 
         setLoading(false);
