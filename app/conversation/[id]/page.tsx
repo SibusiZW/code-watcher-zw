@@ -62,7 +62,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
             </div>)}
 
             <form className="flex space-x-4 fixed bottom-0 left-72 right-0 p-4 text-black" onSubmit={handleSend}>
-                <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+                <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Enter your software idea or your buggy code" required/>
                 <Button className="bg-blue-500 hover:bg-blue-300 rounded-full" type="submit">
                     {loading ? <Loader2 className="animate-spin"/> : <ArrowUp />}
                 </Button>
