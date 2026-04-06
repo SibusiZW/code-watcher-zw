@@ -8,6 +8,7 @@ import generateResponse from "@/server/openrouter"
 import { ArrowUp, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React, { useState, use, useEffect } from "react"
+import ReactMarkdown from 'react-markdown';
 import { toast } from "sonner";
 
 interface ConversationPageProps {
@@ -54,7 +55,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
                 <div className="w-full p-2">
                     <div className="w-full h-full max-h-[400px] p-6 bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-y-auto relative">
                         <span>
-                            {msg.response}
+                            <ReactMarkdown>{msg.response}</ReactMarkdown>
                         </span>
                     </div>
                 </div>
