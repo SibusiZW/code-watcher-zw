@@ -5,9 +5,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Message } from "@/db/schema";
 import createMessage, { getMessages } from "@/server/messages"
 import generateResponse from "@/server/openrouter"
-import { ArrowUp } from "lucide-react"
+import { ArrowUp, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React, { useState, use, useEffect } from "react"
+import { toast } from "sonner";
 
 interface ConversationPageProps {
     params: Promise<{
@@ -20,6 +21,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
     const router = useRouter();
     const [prompt, setPrompt] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const { id } = use(params);
 
@@ -33,9 +35,14 @@ export default function ConversationPage({ params }: ConversationPageProps) {
 
     async function handleSend(e: React.SubmitEvent) {
         e.preventDefault();
-
+        
+        setLoading(true);
+        
         const response = await generateResponse(prompt);
         await createMessage(prompt, response, id);
+
+        setLoading(false);
+        toast.success('Solution is served! refresh to see it!')
 
         router.refresh()
     }
@@ -45,7 +52,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
             {messages?.map(msg => <div className="flex flex-col justify-center items-center" key={msg.id}>
                 <p>{msg.userPrompt}</p>
                 <div className="w-full p-2">
-                    <div className="w-full h-[400px] p-6 bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-y-auto relative">
+                    <div className="w-full h-full max-h-[400px] p-6 bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-y-auto relative">
                         <span>
                             {msg.response}
                         </span>
@@ -56,7 +63,7 @@ export default function ConversationPage({ params }: ConversationPageProps) {
             <form className="flex space-x-4 fixed bottom-0 left-72 right-0 p-4 text-black" onSubmit={handleSend}>
                 <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} />
                 <Button className="bg-blue-500 hover:bg-blue-300 rounded-full" type="submit">
-                    <ArrowUp />
+                    {loading ? <Loader2 className="animate-spin"/> : <ArrowUp />}
                 </Button>
             </form>
         </div>
