@@ -3,6 +3,7 @@ import { UserButton } from '@clerk/nextjs';
 import { getConversations } from '@/server/conversations';
 import getUserId from '@/server/auth';
 import Link from 'next/link';
+import NavLink from './nav-link';
 
 export default async function Sidebar() {
 
@@ -26,7 +27,7 @@ export default async function Sidebar() {
             <Eye />
             Manage conversations
         </Link>
-        {allConversations?.map(item => <Link key={item.id} href={`/conversation/${item.id}`} className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 text-sm font-medium`}>{item.title}</Link>)}
+        {allConversations?.map(item => <NavLink key={item.id} id={item.id} title={item.title} />)}
       </div>
 
       {/* Footer Section */}
