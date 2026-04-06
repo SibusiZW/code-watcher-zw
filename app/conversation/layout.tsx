@@ -2,7 +2,7 @@ import Sidebar from "@/components/sidebar"; // Adjust path based on your folder 
 import { Button } from "@/components/ui/button";
 import { Show, SignInButton } from "@clerk/nextjs";
 
-export default function RootLayout({
+export default function CoversationLayout({
   children,
 }: {
   children: React.ReactNode;
