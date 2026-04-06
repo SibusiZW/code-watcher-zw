@@ -11,6 +11,6 @@ export const messages = pgTable('messages', {
     id: uuid('id').primaryKey().notNull().defaultRandom(),
     userPrompt: text().notNull(),
     response: text().notNull(),
-    conversationId: uuid().references(() => conversations.id),
+    conversationId: uuid().references(() => conversations.id).notNull(),
     createdOn: timestamp().defaultNow(),
 })
