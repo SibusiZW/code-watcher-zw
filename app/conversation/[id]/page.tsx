@@ -61,10 +61,22 @@ export default function ConversationPage({ params }: ConversationPageProps) {
                 </div>
             </div>)}
 
-            <form className="flex space-x-4 fixed bottom-0 left-72 right-0 p-4 text-black" onSubmit={handleSend}>
-                <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Enter your software idea or your buggy code" required/>
-                <Button className="bg-blue-500 hover:bg-blue-300 rounded-full" type="submit">
-                    {loading ? <Loader2 className="animate-spin"/> : <ArrowUp />}
+            <form
+                className="fixed bottom-0 left-0 right-0 md:left-72 md:right-0 p-4 flex items-center gap-4 bg-white/80 backdrop-blur-sm z-20"
+                onSubmit={handleSend}
+            >
+                <Textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder="Enter your software idea or your buggy code"
+                    required
+                    className="flex-1 resize-none min-h-[48px] max-h-[160px] px-4 py-3"
+                />
+                <Button
+                    className="w-12 h-12 p-0 flex items-center justify-center bg-blue-500 hover:bg-blue-600 rounded-full"
+                    type="submit"
+                >
+                    {loading ? <Loader2 className="animate-spin" /> : <ArrowUp />}
                 </Button>
             </form>
         </div>
